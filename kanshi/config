@@ -1,0 +1,11 @@
+profile "home" {
+    output "Unknown 0x0521 0x00000000" mode 1920x1080 position 0,0
+}
+
+profile "airbus" {
+    output "Unknown 0x0521 0x00000000" mode 1920x1080 position 0,0
+    output "Dell Inc. DELL U3419W 5CT16T2" mode 3440x1440 position 1920,0
+    output "Hewlett Packard HP E231 3CQ5120ZW4" mode 1920x1080 position 5360,0 transform "90" 
+
+}
+
