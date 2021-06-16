@@ -49,6 +49,8 @@ bindsym $mod+Shift+b exec $bgcmd
 #
 # Example configuration:
 #
+exec_always swaymsg "output * dpms on"
+
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
          timeout 600 'swaymsg "output * dpms off"' \
@@ -283,6 +285,12 @@ bindsym $mod+Alt+Tab exec --no-startup-id "i3-msg workspace $( $get_wkspcs | rof
 
 # send workspace to a specific output
 bindsym $mod+Home exec --no-startup-id "i3-msg move workspace to output $( $get_outputs | rofi -dmenu -p 'Send workspace to output')"
+
+# send workspace on the current screen
+bindsym $mod+Shift+Home exec ' \
+            out=$(swaymsg -rt get_outputs | jq -r ".[]|select(.focused).name"); \
+            wks=$(swaymsg -t get_workspaces | jq -r ".[]|select(.focused == false).name" | wofi --dmenu); \
+            swaymsg workspace "$wks", move workspace to output "$out"'
 
 
 # send curent container to named workspace (menu appears at top of screen to avoid hiding
