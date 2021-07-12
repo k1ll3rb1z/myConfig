@@ -1,0 +1,10 @@
+[Unit]
+Description=Low Battery cyclic check
+
+[Timer]
+OnStartupSec=10
+OnUnitActiveSec=60
+AccuracySec=30
+
+[Install]
+WantedBy=default.target

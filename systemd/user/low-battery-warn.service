@@ -1,0 +1,21 @@
+# Send a DBUS notification when the battery lever drops below a threshold
+#
+# To avoid having several instances of the warning present at the same time:
+# The notify-send(1) -t flag is set to ~60s so that it matches the OnUnitActiveSec from
+# the low-battery-warn.timer unit file
+
+[Unit]
+Description=Check if battery is low
+
+[Service]
+Environment=BAT="BAT0 BAT1"
+Environment=THRESHOLD=15
+Environment=ICON=/usr/share/icons/HighContrast/48x48/status/battery-caution.png
+ExecStart=sh -c \
+	'[ $(< /sys/class/power_supply/AC/online) -eq 1 ] && exit; \
+         now=0; max=0; \
+	 for b in $BAT; do \
+		let max+=$(</sys/class/power_supply/$b/energy_full); \
+		let now+=$(</sys/class/power_supply/$b/energy_now); \
+	 done; \
+	 [ $[100 * now / max >= $THRESHOLD ] -ne 0 ] || notify-send -c device -t $[60 * 1000 - 1] -i "$ICON" "Battery low!"'

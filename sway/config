@@ -29,6 +29,9 @@ default_border pixel
 # on the original workspace that the command was run on.
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
+### Mako for notification
+exec_always 'pgrep mako || mako'
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -50,6 +53,8 @@ bindsym $mod+Shift+b exec $bgcmd
 # Example configuration:
 #
 exec_always swaymsg "output * dpms on"
+exec_always 'pgrep nm-applet || nm-applet'
+exec_always 'pgrep swayrd || /home/to72153/.cargo/bin/swayrd'
 
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
@@ -212,6 +217,13 @@ input "1:1:AT_Translated_Set_2_keyboard" xkb_model "pc105"
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+
+#
+# swayr
+#
+    bindsym $mod+Shift+p exec /home/to72153/.cargo/bin/swayr switch-window                    
+    bindsym $mod+Shift+w exec /home/to72153/.cargo/bin/swayr switch-workspace 
+
 #
 # Scratchpad:
 #
