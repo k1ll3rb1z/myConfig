@@ -191,6 +191,15 @@ input "1:1:AT_Translated_Set_2_keyboard" xkb_model "pc105"
     bindsym $mod+Ctrl+left workspace prev
     bindsym $mod+Ctrl+right workspace next
 
+#
+# SCREENSHOT grim slurp
+#
+# Take a screenshot with all output and save it into screenshots
+bindsym Print exec grim -t png ~/screenshots/$(date +%Y-%m-%d_%H-%m-%s).png
+
+# Take a Screenshot with the region select
+bindsym $mod+Print exec grim -t png -g "$(slurp)" ~/screenshots/$(date +%Y-%m-%d_%H-%m-%s).png
+
 
 #
 # Layout stuff:
