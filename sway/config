@@ -17,6 +17,7 @@ set $mod Mod4
 # set $term x-terminal-emulator
 # set $term terminator
 set $term alacritty
+#set $term foot
 set $displaycmd /bin/bash /home/to72153/bin/display.sh
 set $lockcmd /bin/bash /home/to72153/bin/lock.sh
 set $bgcmd /bin/bash /home/to72153/bin/bg.sh
@@ -329,6 +330,7 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # keepass
+#bindsym Ctrl+Alt+a exec mono /usr/lib/keepass2/KeePass.exe --auto-type
 bindsym Ctrl+Alt+a exec mono /usr/lib/keepass2/KeePass.exe --auto-type
 
 
