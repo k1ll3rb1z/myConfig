@@ -20,6 +20,7 @@ set $term alacritty
 #set $term foot
 set $displaycmd /bin/bash /home/to72153/bin/display.sh
 set $lockcmd /bin/bash /home/to72153/bin/lock.sh
+set $mylockcmd /bin/bash /home/to72153/bin/mylock
 set $bgcmd /bin/bash /home/to72153/bin/bg.sh
 
 # Border
@@ -54,6 +55,7 @@ bindsym $mod+Shift+b exec $bgcmd
 # Example configuration:
 #
 exec_always swaymsg "output * dpms on"
+exec_always "systemctl --user import-environment; systemctl --user start sway-session.target"
 exec_always 'pgrep nm-applet || nm-applet'
 exec_always 'pgrep swayrd || /home/to72153/.cargo/bin/swayrd'
 
@@ -247,6 +249,10 @@ bindsym $mod+Print exec grim -t png -g "$(slurp)" ~/screenshots/$(date +%Y-%m-%d
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+twosuperior scratchpad show
 #
+# Floating conditions
+#
+    for_window [app_id="yad"] floating enable
+#
 # Resizing containers:
 #
 mode "resize" {
@@ -295,8 +301,9 @@ bar {
 bindsym $mod+Ctrl+c exec $term -e nmtui-connect
 bindsym $mod+Ctrl+e exec $term -e nmtui-edit
 
-bindsym $mod+Ctrl+l exec swaylock -e -c 000000 -i /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png
+bindsym $mod+Ctrl+l exec swaylock -c 000000 -i /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png
 bindsym $mod+l exec $lockcmd
+bindsym $mod+Shift+l exec $mylockcmd
 
 # exec --no-startup-id nm-applet"
 
@@ -331,11 +338,10 @@ bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # keepass
 #bindsym Ctrl+Alt+a exec mono /usr/lib/keepass2/KeePass.exe --auto-type
-bindsym Ctrl+Alt+a exec mono /usr/lib/keepass2/KeePass.exe --auto-type
+#bindsym Ctrl+Alt+a exec mono /usr/lib/keepass2/KeePass.exe --auto-type
 
 
 include /etc/sway/config.d/*
-
 exec_always $displaycmd
 bindsym $mod+Shift+F12 exec $displaycmd
 

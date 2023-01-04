@@ -5,6 +5,7 @@
     // "width": 1280, // Waybar width
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode", "custom/media"],
+    // "modules-left": ["sway/workspaces", "sway/mode" ],
     "modules-center": ["sway/window"],
     "modules-right": ["mpd", "idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "sway/language", "battery", "battery#bat1", "custom/clock", "tray"],
     // Modules configuration
@@ -142,8 +143,8 @@
             "default": "🎜"
         },
         "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+        //"exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     },
     "custom/clock": {
         "exec": "date +'%Y/%m/%d-%H:%M %S'",
