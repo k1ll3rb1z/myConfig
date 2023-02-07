@@ -15,7 +15,17 @@ profile "airbus" {
 
 profile "airbus2" {
     output "Unknown 0x0521 0x00000000" mode 1920x1080 position 0,0 transform normal
+    output "Dell Inc. DELL U3419W 5CT16T2" mode 3440x1440 position 1920,0 transform normal
+}
+
+profile "airbus3" {
+    output "Unknown 0x0521 0x00000000" mode 1920x1080 position 0,0 transform normal
     output "Unknown Q27G2WG4 0x0000D5F1" mode 3440x1440 position 1920,0 transform normal
     output "Hewlett Packard HP E231 3CQ5120ZW4" mode 1920x1080 position 5360,0 transform "270"
+}
+
+profile "germany" {
+    output "Hewlett Packard HP E201 CNC5210K0F" mode 1600x900 position 0,0 transform normal
+    output "Unknown 0x0521 0x00000000" mode 1920x1080 position 1600,0 transform normal
 }
 
