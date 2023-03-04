@@ -255,6 +255,7 @@ bindsym $mod+Print exec grim -t png -g "$(slurp)" ~/screenshots/$(date +%Y-%m-%d
     for_window [app_id="yad"] floating enable
     for_window [app_id="firefox"] floating enable
     for_window [app_id="zenity"] floating enable
+    for_window [class="KeePassXC"] floating enable
 
 #
 # Resizing containers:
