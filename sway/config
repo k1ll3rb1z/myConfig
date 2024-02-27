@@ -16,8 +16,8 @@ set $mod Mod4
 # Your preferred terminal emulator
 # set $term x-terminal-emulator
 # set $term terminator
-set $term alacritty
-#set $term foot
+#set $term alacritty
+set $term foot
 set $displaycmd /bin/bash /home/to72153/bin/display.sh
 set $lockcmd /bin/bash /home/to72153/bin/lock.sh
 set $mylockcmd /bin/bash /home/to72153/bin/mylock
@@ -55,7 +55,6 @@ bindsym $mod+Shift+b exec $bgcmd
 # Example configuration:
 #
 exec_always swaymsg "output * dpms on"
-exec_always "systemctl --user import-environment; systemctl --user start sway-session.target"
 exec_always 'pgrep nm-applet || nm-applet'
 exec_always 'pgrep swayrd || /home/to72153/.cargo/bin/swayrd'
 
@@ -73,11 +72,15 @@ exec swayidle -w \
 #
 # Example configuration:
 input type:keyboard {
-    xkb_layout fr,us,de
+    #xkb_layout fr,us,de
+    xkb_layout fr
     xkb_options grp:win_space_toggle,compose:caps
 }
 
 input "1:1:AT_Translated_Set_2_keyboard" xkb_model "pc105"
+
+#wacom
+input "1386:888:Wacom_Intuos_BT_M_Pad" map_to_output "DP-4"
 
 #
 #   input "2:14:SynPS/2_Synaptics_TouchPad" {
@@ -234,8 +237,8 @@ bindsym $mod+Print exec grim -t png -g "$(slurp)" ~/screenshots/$(date +%Y-%m-%d
 #
 # swayr
 #
-    bindsym $mod+Shift+p exec /home/to72153/.cargo/bin/swayr switch-window                    
-    bindsym $mod+Shift+w exec /home/to72153/.cargo/bin/swayr switch-workspace 
+    bindsym $mod+Shift+p exec /sbin/swayr switch-window                    
+    bindsym $mod+Shift+w exec /sbin/swayr switch-workspace 
 
 #
 # Scratchpad:
@@ -255,7 +258,8 @@ bindsym $mod+Print exec grim -t png -g "$(slurp)" ~/screenshots/$(date +%Y-%m-%d
     for_window [app_id="yad"] floating enable
     for_window [app_id="firefox"] floating enable
     for_window [app_id="zenity"] floating enable
-    for_window [class="KeePassXC"] floating enable
+    for_window [app_id="KeePassXC"] floating enable
+    for_window [app_id="pavucontrol"] floating enable
 
 #
 # Resizing containers:
@@ -306,19 +310,19 @@ bar {
 bindsym $mod+Ctrl+c exec $term -e nmtui-connect
 bindsym $mod+Ctrl+e exec $term -e nmtui-edit
 
-bindsym $mod+Ctrl+l exec swaylock -c 000000 -i /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png
+bindsym $mod+Ctrl+l exec swaylock -c 000000 -i /usr/share/backgrounds/archlinux/archwave.png
 bindsym $mod+l exec $lockcmd
 bindsym $mod+Shift+l exec $mylockcmd
 
 # exec --no-startup-id nm-applet"
 
-set $get_wkspcs i3-msg -t get_workspaces | jq -r '.[].name' | sort -n
+set $get_wkspcs swaymsg -t get_workspaces | jq -r '.[].name' | sort -n
 set $get_outputs swaymsg -r -t get_outputs | jq -r '.[].name' | sort -n
 
-bindsym $mod+Alt+Tab exec --no-startup-id "i3-msg workspace $( $get_wkspcs | rofi -dmenu -p 'Switch to workspace')"
+bindsym $mod+Alt+Tab exec --no-startup-id "swaymsg workspace $( $get_wkspcs | rofi -dmenu -p 'Switch to workspace')"
 
 # send workspace to a specific output
-bindsym $mod+Home exec --no-startup-id "i3-msg move workspace to output $( $get_outputs | rofi -dmenu -p 'Send workspace to output')"
+bindsym $mod+Home exec --no-startup-id "swaymsg move workspace to output $( $get_outputs | rofi -dmenu -p 'Send workspace to output')"
 
 # send workspace on the current screen
 bindsym $mod+Shift+Home exec ' \
@@ -329,7 +333,7 @@ bindsym $mod+Shift+Home exec ' \
 
 # send curent container to named workspace (menu appears at top of screen to avoid hiding
 # current workspace numbers (displayed at bottom of screen)
-bindsym $mod+Shift+Tab exec --no-startup-id "i3-msg move container to workspace $( $get_wkspcs | rofi -dmenu -p 'Send container to workspace')"
+bindsym $mod+Shift+Tab exec --no-startup-id "swaymsg move container to workspace $( $get_wkspcs | rofi -dmenu -p 'Send container to workspace')"
 # Active window switcher
 bindsym $mod+Ctrl+Tab exec --no-startup-id $term -e 'rofi -show window'
 
@@ -350,3 +354,4 @@ include /etc/sway/config.d/*
 exec_always $displaycmd
 bindsym $mod+Shift+F12 exec $displaycmd
 
+exec_always "systemctl --user import-environment; systemctl --user restart sway-session.target"
